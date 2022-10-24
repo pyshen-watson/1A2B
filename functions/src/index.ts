@@ -1,9 +1,9 @@
 import * as functions from "firebase-functions";
+import randomNumberGenerator from "./lib/random-number-generator";
 
-// // Start writing Firebase Functions
-// // https://firebase.google.com/docs/functions/typescript
-//
-// export const helloWorld = functions.https.onRequest((request, response) => {
-//   functions.logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+export const RNG = functions.https.onCall((data, context) => {
+
+    const randomNumberString = randomNumberGenerator(data.length, data.shuffle_n)
+
+    return randomNumberString
+})

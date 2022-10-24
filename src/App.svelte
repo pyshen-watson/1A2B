@@ -1,10 +1,33 @@
 <script lang="ts">
 
+  import { RNG } from "./lib/firebase/api"
+
+  let RNGConfig = {
+    length: 6,
+    shuffle_n: 20
+  }
+  let random = ""
+
+  const buttonClickHandler = () => {
+
+    RNG(RNGConfig)
+      .then((value:any) => {
+        random = value.data
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+  }
+
+
+
+
 </script>
 
 <div class="main">
   <h1>1A2B Game</h1>
-  <button>Start</button>
+  <button on:click={buttonClickHandler}>Start</button>
+  <p>{random}</p>
 </div>
 
 <style lang="scss">
