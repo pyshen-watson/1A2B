@@ -1,21 +1,38 @@
 <script lang="ts">
 
-  import { RNG } from "./lib/firebase/api"
+  import { newGame, verifyAnswer } from "./lib/firebase/api"
 
-  let RNGConfig = {
-    length: 6,
+  let config = {
+    length: 4,
     shuffle_n: 20
   }
-  let random = ""
+  let gameID = ""
+  let input = ""
 
-  const buttonClickHandler = () => {
+  const startHandler = () => {
 
-    RNG(RNGConfig)
+    newGame(config)
       .then((value:any) => {
-        random = value.data
+        gameID = value.data
       })
       .catch((error) => {
-        console.error(error);
+        console.error(error)
+      })
+  }
+
+  const checkHandler = () => {
+
+    verifyAnswer({id:gameID, submit:input})
+      .then((response:any) => {
+
+        let data = response.data
+        if(typeof(data) === "string"){
+          throw data
+        }
+        console.log(data)
+      })
+      .catch((error) => {
+        alert(error)
       })
   }
 
@@ -26,8 +43,11 @@
 
 <div class="main">
   <h1>1A2B Game</h1>
-  <button on:click={buttonClickHandler}>Start</button>
-  <p>{random}</p>
+  <button on:click={startHandler}>Start</button>
+  <span>
+    <input type="text" bind:value={input}>
+    <button on:click={checkHandler}>Check</button>
+  </span>
 </div>
 
 <style lang="scss">
@@ -53,6 +73,11 @@
         background-color: gray;
         border-color: black;
       }
+    }
+
+    input{
+      font-size: 2rem;
+      margin-right: 1rem;
     }
   }
 
