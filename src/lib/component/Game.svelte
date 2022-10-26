@@ -122,11 +122,6 @@
                 button{
                     border-radius: 0px;
                 }
-
-                .active, :disabled{
-                    background-color: #222222;
-                    color: white;
-                }
             }
         }
 

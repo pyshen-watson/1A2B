@@ -2,13 +2,13 @@ import * as functions from "firebase-functions"
 import * as admin from 'firebase-admin'
 admin.initializeApp()
 
-import { v4 as uuidv4 } from "uuid"
+import { uuid } from "uuidv4"
 import randomNumberGenerator from "./lib/random-number-generator"
 import verifySubmission from "./lib/verify-submission"
 
 export const newGame = functions.https.onCall( async (data, context) => {
 
-    const gameID = uuidv4()
+    const gameID = uuid()
     const answer = randomNumberGenerator(data.length, data.shuffle_n)
 
     try {
