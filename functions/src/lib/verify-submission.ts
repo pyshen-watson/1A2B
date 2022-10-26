@@ -9,7 +9,7 @@ function verifySubmission(submit:string, answer:string){
 
     let A = 0
     let B = 0
-    let A_index = []
+    const A_index = []
 
     for(let i=0; i<submit.length; i++){
 
